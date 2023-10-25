@@ -1,0 +1,11 @@
+{
+  "namespace": "Apps\\MastersThesis",
+  "label": "Masterarbeit",
+  "urls": [
+    {
+      "api": true,
+      "public": true,
+      "regex": "/masters-thesis"
+    }
+  ]
+}
