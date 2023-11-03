@@ -29,10 +29,13 @@ class Category extends Row {
 
     public ChoiceColumn $type;
 
+    public StringColumn $icon;
+
     public function __construct() {
         $this->id = new IDColumn();
         $this->label = new StringColumn();
         $this->type = new ChoiceColumn(default_value: self::TYPE_EXPENSE);
+        $this->icon = new StringColumn(length: 50, nullable: true);
         $this->add_check_constraint('type_range', "`type` BETWEEN 1 AND 2");
     }
 
