@@ -21,15 +21,20 @@ use JetBrains\PhpStorm\NoReturn;
 
 class Data extends API {
 
+    private const STD_ICONS = ['building-columns', 'icons', 'money-bills', 'question'];
+
     /**
      * @throws ColumnNotInitializedException
      * @throws FontAwesomeException
      */
     #[NoReturn] public function get(): void {
+        $accounts = Account::get_multiple();
         $categories = Category::get_multiple();
-        $icon_ids = [];
-        foreach ($categories as $category) {
-            $icon_id = $category->icon->get();
+        $transactions = Transaction::get_multiple();
+        // get all used icons
+        $icon_ids = self::STD_ICONS;
+        foreach ([...$accounts, ...$categories] as $row) {
+            $icon_id = $row->icon->get();
             if ($icon_id === null || in_array($icon_id, $icon_ids, true)) {
                 continue;
             }
@@ -37,10 +42,10 @@ class Data extends API {
         }
         $icons = FontAwesomeIcon::get_multiple(FontAwesomeIcon::STYLE_SOLID, $icon_ids ?? []);
         self::success(array(
-            'accounts' => Account::get_multiple(),
+            'accounts' => $accounts,
             'categories' => $categories,
             'icons' => $icons,
-            'transactions' => Transaction::get_multiple(),
+            'transactions' => $transactions,
         ));
     }
 

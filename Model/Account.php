@@ -25,10 +25,13 @@ class Account extends Row {
 
     public IntegerColumn $start_balance;
 
+    public StringColumn $icon;
+
     public function __construct() {
         $this->id = new IDColumn();
         $this->label = new StringColumn(unique: true);
         $this->start_balance = new IntegerColumn(max_size: 10000000000, default_value: 0);
+        $this->icon = new StringColumn(length: 50, nullable: true);
     }
 
 }
