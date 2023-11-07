@@ -21,8 +21,6 @@ use JetBrains\PhpStorm\NoReturn;
 
 class Data extends API {
 
-    private const STD_ICONS = ['building-columns', 'icons', 'money-bills', 'question'];
-
     /**
      * @throws ColumnNotInitializedException
      * @throws FontAwesomeException
@@ -32,7 +30,7 @@ class Data extends API {
         $categories = Category::get_multiple();
         $transactions = Transaction::get_multiple();
         // get all used icons
-        $icon_ids = self::STD_ICONS;
+        $icon_ids = [];
         foreach ([...$accounts, ...$categories] as $row) {
             $icon_id = $row->icon->get();
             if ($icon_id === null || in_array($icon_id, $icon_ids, true)) {
