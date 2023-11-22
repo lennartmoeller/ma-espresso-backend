@@ -16,6 +16,7 @@ use Core\Database\Columns\IntegerColumn;
 use Core\Database\Columns\ManyToOneColumn;
 use Core\Database\Columns\StringColumn;
 use Core\Database\Rows\Row;
+use Core\Media\Model\OriginalFile;
 
 class Transaction extends Row {
 
@@ -33,6 +34,8 @@ class Transaction extends Row {
 
     public IntegerColumn $amount;
 
+    public ManyToOneColumn $receipt;
+
     public function __construct() {
         $this->id = new IDColumn();
         $this->date = new DateColumn();
@@ -40,6 +43,7 @@ class Transaction extends Row {
         $this->category = new ManyToOneColumn(referenced_row: new Category);
         $this->description = new StringColumn();
         $this->amount = new IntegerColumn(max_size: 10000000000);
+        $this->receipt = new ManyToOneColumn(new OriginalFile, true, false, false, null, ManyToOneColumn::RESTRICT, ManyToOneColumn::RESTRICT);
     }
 
 }
